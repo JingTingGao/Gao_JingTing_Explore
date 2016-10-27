@@ -1,28 +1,46 @@
 ---
 title: "Gao_Jingting_HW7"
 author: "Jingting Gao"
-date: "10/20/2016"
+date: "10/27/2016"
 output: html_document
 ---
-
 ```{r}
-data<-data(mtcars)
-names(mtcars)
 
-class(mtcars$cyl)
+explore <- function (dataframe, plot_switch, threshold, optional_vector){
+    #define explore function with four parameters
 
-for (i in 1:dim(mtcars)[2]){
- if (class(mtcars[,i])=="numeric"){
-  print(summary(mtcars[,i]))
- }
- else if(class(data[,i]==""))
+    x=list()  # initialize the return list
+    for (i in names(dataframe)){ # loop over all columns
+        if (is.numeric(dataframe[[i]])){ # a numeric column
+            x[[length(x)+1]] <- summary(dataframe[[i]]) # get summary statistics table
+        } else { # categorical or logical column
+            x[[length(x)+1]] <- table(dateframe[[i]]) # get frequency table
+        }
+    }
+    pairs <- c(); #contains pair of column names
+    cors <- c();  #contains correlation coefficients
+    n <- names(dataframe) #get names of columns 
+    for (i in c(1:(length(n)-1))){
+        ni <- n[[i]] # name of i-th column
+        if (is.numeric(dataframe[[ni]])){
+            for (j in c((i+1): length(n))){
+                nj <- n[[j]] # name of j-th column
+                if (is.numeric(dataframe[[nj]])){
+                    cij <- cor(dataframe[[ni]], dataframe[[nj]]) # compute correlation coefficient
+                    if (abs(cij) > threshold) # compare cij with the correlation threshold
+                    {
+                        pairs[[length(pairs)+1]] <- paste(ni, nj, sep='-') #save column names
+                        cors[[length(cors)+1]] <- cij # save cij
+                    }
+                }
+            }
+        }
+    }
+    cp <- data.frame(pairs, cors) #form dataframe
+    colnames(cp) <-c('Variable Pairs', 'Pearson Exceeds Threshold') #change column names
+    x[[length(x)+1]] <- cp #add to list
+    return(x)
 }
-
-
-
-
-
-
 
 ```
 
