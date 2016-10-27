@@ -1,0 +1,28 @@
+---
+title: "Gao_Jingting_HW7"
+author: "Jingting Gao"
+date: "10/20/2016"
+output: html_document
+---
+
+```{r}
+data<-data(mtcars)
+names(mtcars)
+
+class(mtcars$cyl)
+
+for (i in 1:dim(mtcars)[2]){
+ if (class(mtcars[,i])=="numeric"){
+  print(summary(mtcars[,i]))
+ }
+ else if(class(data[,i]==""))
+}
+
+
+
+
+
+
+
+```
+
