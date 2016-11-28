@@ -4,6 +4,8 @@ author: "Jingting Gao"
 date: "10/27/2016"
 output: html_document
 ---
+#Comments: It is better to include a test case of your function and after the application of your function you will find that what kind of information you need to make your function work. I used the 'diamonds' data set to test your function and it doesn't work for it. And after the study of your code, I found you maybe don't understand the index well. Like 'if (is.numeric(dataframe[[i]])){ # a numeric column' index through this way would create invalid subscript type 'closure'. So I recommend to redesign this function again.
+
 ```{r}
 
 explore <- function (dataframe, plot_switch, threshold, optional_vector){
